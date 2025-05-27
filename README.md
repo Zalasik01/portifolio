@@ -8,3 +8,16 @@ Aqui você encontrará informações sobre meus projetos, habilidades e um pouco
 - ⚛️ [React](https://reactjs.org/) – Biblioteca para criação da interface do usuário
 - 🎨 CSS – Estilização moderna e responsiva
 - 🌐 Hospedagem em breve
+
+
+portifolio/
+├── public/
+├── src/
+│ ├── assets/
+│ ├── components/
+│ ├── pages/
+│ ├── App.jsx
+│ └── main.jsx
+├── .gitignore
+├── package.json
+└── README.md
