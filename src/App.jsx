@@ -1,30 +1,51 @@
-import { useState } from "react";
-import reactLogo from "/public/react.svg";
+import { useState, useEffect } from "react";
+import ProjectList from "./components/ProjectList.jsx";
+import { PrimaryButton, SecondaryButton, DangerButton } from "./components/Buttons";
 import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const fullText = "Meu Portfólio";
+  const [text, setText] = useState("");
+  const [typing, setTyping] = useState(true);
+
+  useEffect(() => {
+    let i = 0;
+    let interval;
+
+    function startTyping() {
+      setTyping(true);
+      interval = setInterval(() => {
+        setText(fullText.slice(0, i + 1));
+        i++;
+        if (i === fullText.length) {
+          clearInterval(interval);
+          setTyping(false);
+          setTimeout(() => {
+            setText("");
+            i = 0;
+            startTyping();
+          }, 1200);
+        }
+      }, 120);
+    }
+
+    startTyping();
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <>
-      <div>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="App">
+      <h1>
+        {text}
+        {typing && <span>...</span>}
+      </h1>
+      <div style={{ marginBottom: "24px" }}>
+        <PrimaryButton onClick={() => alert("Botão Primário!")}>Primário</PrimaryButton>
+        <SecondaryButton onClick={() => alert("Botão Secundário!")}>Secundário</SecondaryButton>
+        <DangerButton onClick={() => alert("Botão Perigo!")}>Perigo</DangerButton>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+      <ProjectList />
+    </div>
   );
 }
 
